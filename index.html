@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
 
     <meta name="viewport" content="width=300">
-    <title>popn ID出力ツール</title>
+    <title>5の倍数入りのIDがポップンのお題に挑戦</title>
 
     <script type="text/javascript">
         class Random {
@@ -56,7 +56,7 @@
                 html = `
                 <p>このツールは「5の倍数のIDがお題に挑戦」用のID出力ツールです。
     結果は日替わりです。</p>
-    <p><input type='text' id='txt_name'></p>
+    <p>名前：<input type='text' id='txt_name' class="form-control"></p>
     <button type='button' class='btn btn-primary' onclick='generate_ID()'>出力</button><br>
                 `
                 $('#output').html(html)
@@ -98,7 +98,6 @@
                 let five_flag = false;
                 html = '<p>' + name + 'さんのIDは、' + String(ID) + 'です。<br>'
 
-                ID = 'a10sd'
 
                 for (let i = 0; i < 8; i++) {
                     if (ID.slice(i, i + 1) == '5') {
@@ -163,7 +162,7 @@
 </head>
 
 <body>
-    <h1>popn ID 出力ツール</h1><br>
+    <h2>5の倍数入りのIDがポップンのお題に挑戦</h2><br>
     <div id='output'></div>
 
 </body>
