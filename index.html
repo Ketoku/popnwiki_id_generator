@@ -146,6 +146,7 @@
 
         generate_ID = function () {
             document.cookie = 'name=' + $('#txt_name').val()
+
             window.location.href = window.location.href + '?' + $('#txt_name').val()
 
         }
