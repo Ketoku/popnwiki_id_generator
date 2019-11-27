@@ -15,7 +15,6 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 
-    <meta name="viewport" content="width=300">
 
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="no-cache" />
@@ -61,8 +60,8 @@
                 html = `
                 <p>このツールは「5の倍数のIDがお題に挑戦」用のID出力ツールです。
     結果は日替わりです。</p>
-    <p>名前：<input type='text' id='txt_name' class="form-control" style="width:250px;"></p>
-    <button type='button' class='btn btn-primary' onclick='generate_ID()'>出力</button><br>
+    <p>名前：<input type='text' id='txt_name' class="form-control" style="width:250px;" "></p>
+    <button type='button' type='submit' class='btn btn-primary' onclick='generate_ID()'>出力</button><br>
                 `
                 $('#output').html(html)
 
@@ -83,7 +82,7 @@
 
                 //nameの数値からランダムに選びseedを生成
                 let seed_date = String(now.getFullYear()) + String(now.getMonth()) + String(now.getDate());
-                console.log(seed_date)
+                seed_date = '20191128'
                 let pre_r = new Random(Number(seed_date));
                 let seed = ''
                 for (let i = 0; i < 24; i++) {
