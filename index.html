@@ -142,7 +142,7 @@
 
                 html += message +
                     `<a href='https://popn.hyrorre.com/%E6%A5%BD%E3%81%97%E3%81%84%E8%A9%B1%E9%A1%8C/5%E3%81%AE%E5%80%8D%E6%95%B0%E5%85%A5%E3%82%8A%E3%81%AEid%E3%81%8C%E3%83%9D%E3%83%83%E3%83%97%E3%83%B3%E3%81%AE%E3%81%8A%E9%A1%8C%E3%81%AB%E6%8C%91%E6%88%A6#discussion__section'>Wikiへのリンク</a></p>
-                    結果コピー用<br><textarea id='result' rows='6' cols='40'>` + name + 'さんのIDは、' + String(ID) + 'です。' + message + '\n[[' + window.location.href + `|IDを確認]]</textarea>
+                    結果コピー用<br><textarea id='result' rows='6' >` + name + 'さんのIDは、' + String(ID) + 'です。' + message + '\n[[' + window.location.href + `|IDを確認]]</textarea>
                     <p> <button type='button' class='btn btn-primary' onclick='copy_ID()'>結果をコピー</button></p><p>`
 
                 $('#output').html(html)
@@ -167,10 +167,19 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <style type="text/css">
+        textarea {
+            width: 30%;
+        }
+
         @media screen and (max-width: 500px) {
 
             html {
                 font-size: 5vw;
+
+            }
+
+            textarea {
+                width: 100%;
             }
         }
     </style>
