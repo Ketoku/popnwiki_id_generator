@@ -14,6 +14,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=300">
     <title>popn ID出力ツール</title>
 
     <script type="text/javascript">
@@ -67,38 +69,58 @@
                 let name = decodeURI(window.location.search.slice(1))
 
 
-                let seed_raw = String(now.getFullYear()) + String(now.getMonth()) + String(now.getDate());
+
+                // nameを数値に変換
+                let name_int = '';
                 for (let i = 0; i < name.length; i++) {
-                    seed_raw += String(name.charCodeAt(i));
+                    name_int += String(name.charCodeAt(i));
                 }
 
-
-                r1 = new Random(1234567890);
+                //nameの数値からランダムに選びseedを生成
+                let seed_date = String(now.getFullYear()) + String(now.getMonth()) + String(now.getDate());
+                let pre_r = new Random(Number(seed_date));
                 let seed = ''
                 for (let i = 0; i < 24; i++) {
-                    r = r1.nextInt(seed_raw.length - 1)
-                    seed += seed_raw.slice(r, r + 1);
+                    r = pre_r.nextInt(name_int.length - 1)
+                    seed += name_int.slice(r, r + 1);
                 }
 
 
 
-                r2 = new Random(Number(seed));
+                r = new Random(Number(seed));
 
                 for (let i = 0; i < 8; i++) {
-                    ID += alp[r2.nextInt(alp.length - 1)];
+                    ID += alp[r.nextInt(alp.length - 1)];
                 }
 
                 let success = false;
                 let int_flag = false;
+                let five_flag = false;
                 html = '<p>' + name + 'さんのIDは、' + String(ID) + 'です。<br>'
+
+                ID = 'a10sd'
 
                 for (let i = 0; i < 8; i++) {
                     if (ID.slice(i, i + 1) == '5') {
-                        success = true;
-                        break;
+                        int_flag = true;
+                        five_flag = true;
                     }
                     else if (ID.slice(i, i + 1) == '0') {
                         if (int_flag) {
+                            five_flag = true;
+                        }
+                        else {
+                            int_flag = false;
+                        }
+                    }
+                    else if (Number(ID.slice(i, i + 1)) <= 9) {
+                        if (five_flag) {
+                            five_flag = false;
+                        }
+                        int_flag = true;
+                    }
+                    else {
+                        if (five_flag) {
                             success = true;
                             break;
                         }
@@ -106,28 +128,18 @@
                             int_flag = false;
                         }
                     }
-                    //ID.slice(i, i + 1).indexOf(['1', '2', '3', '4', '6', '7', '8', '9']) !== -1
-                    else if (Number(ID.slice(i, i + 1)) <= 9) {
-                        int_flag = true;
-                    }
-                    else {
-                        int_flag = false;
-                    }
                 }
-
+                let message;
                 if (success) {
-                    html += `当たりです！お題をもらいに行きましょう。<br>
-                    <a href='https://popn.hyrorre.com/%E6%A5%BD%E3%81%97%E3%81%84%E8%A9%B1%E9%A1%8C/5%E3%81%AE%E5%80%8D%E6%95%B0%E5%85%A5%E3%82%8A%E3%81%AEid%E3%81%8C%E3%83%9D%E3%83%83%E3%83%97%E3%83%B3%E3%81%AE%E3%81%8A%E9%A1%8C%E3%81%AB%E6%8C%91%E6%88%A6'>Wikiへのリンク</a></p>`
+                    message = '当たりです！お題をもらいに行きましょう。'
                 } else {
-                    html += '残念、明日もチャレンジ！</p>'
+                    message = '残念、明日もチャレンジ！'
                 }
 
-
-
-                html += `結果コピー用<br><textarea id='result' rows='4' cols='100'>` + name + 'さんのIDは、' + String(ID) + 'です。\n[[' + window.location.href + '|IDを確認]]</textarea>'
-
-                html += `
-    <p><button type='button' class='btn btn-primary' onclick='copy_ID()'>結果をコピー</button></p>`
+                html += message +
+                    `<a href='https://popn.hyrorre.com/%E6%A5%BD%E3%81%97%E3%81%84%E8%A9%B1%E9%A1%8C/5%E3%81%AE%E5%80%8D%E6%95%B0%E5%85%A5%E3%82%8A%E3%81%AEid%E3%81%8C%E3%83%9D%E3%83%83%E3%83%97%E3%83%B3%E3%81%AE%E3%81%8A%E9%A1%8C%E3%81%AB%E6%8C%91%E6%88%A6#discussion__section'>Wikiへのリンク</a></p>
+                    結果コピー用<br><textarea id='result' rows='6' cols='40'>` + name + 'さんのIDは、' + String(ID) + 'です。' + message + '\n[[' + window.location.href + `|IDを確認]]</textarea>
+                    <p> <button type='button' class='btn btn-primary' onclick='copy_ID()'>結果をコピー</button></p><p>`
 
                 $('#output').html(html)
             }
@@ -143,6 +155,7 @@
             var textarea = document.getElementsByTagName("textarea")[0];
             textarea.select();
             document.execCommand('Copy');
+            window.getSelection().removeAllRanges();
             alert('コピーしました');
         }
     </script>
