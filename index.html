@@ -150,9 +150,13 @@
         })
 
         generate_ID = function () {
-            document.cookie = 'name=' + $('#txt_name').val()
+            if (window.location.href.slice(-1) == '?') {
+                window.location.href = window.location.href + $('#txt_name').val()
 
-            window.location.href = window.location.href + '?' + $('#txt_name').val()
+            }
+            else {
+                window.location.href = window.location.href + '?' + $('#txt_name').val()
+            }
 
         }
 
