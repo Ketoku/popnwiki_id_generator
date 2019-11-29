@@ -149,6 +149,10 @@
                     結果コピー用<br><textarea id='result' rows='6' class="form-control">` + name + 'さんのIDは、' + String(ID) + 'です。' + message + '\n[[' + window.location.href + `|IDを確認]]</textarea>
                     <p> <button type='button' class='btn btn-primary' onclick='copy_ID()'>結果をコピー</button></p><p>`
 
+                if (success) {
+                    html += '<p>お題をもらうときは、適正レベル、プレイスタイル、希望するお題などを書き込むようにしましょう。</p>'
+                }
+
                 $('#output').html(html)
             }
         })
