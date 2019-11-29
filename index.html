@@ -93,14 +93,15 @@
 
                 r = new Random(Number(seed));
 
-                for (let i = 0; i < ID.length; i++) {
+                for (let i = 0; i < 8; i++) {
                     ID += alp[r.nextInt(alp.length - 1)];
                 }
 
                 let success = false;
                 let int_flag = false;
                 let five_flag = false;
-                html = '<p>' + name + 'さんのIDは、' + String(ID) + 'です。<br>'
+
+                html = '<p>' + name + 'さんのIDは、' + ID + 'です。<br>'
 
 
                 for (let i = 0; i < ID.length; i++) {
