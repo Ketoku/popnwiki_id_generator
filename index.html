@@ -103,7 +103,7 @@
                 html = '<p>' + name + 'さんのIDは、' + String(ID) + 'です。<br>'
 
 
-                for (let i = 0; i < 8; i++) {
+                for (let i = 0; i < ID.length; i++) {
                     if (ID.slice(i, i + 1) == '5') {
                         int_flag = true;
                         five_flag = true;
@@ -132,6 +132,10 @@
                         }
                     }
                 }
+                if (five_flag) {
+                    success = true;
+                }
+
                 let message;
                 if (success) {
                     message = '当たりです！お題をもらいに行きましょう。'
