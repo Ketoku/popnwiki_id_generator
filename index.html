@@ -52,6 +52,8 @@
             "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
         let html = '';
+        const now = new Date();
+        let date = String(now.getFullYear()) + String(now.getMonth()) + String(now.getDate());
 
         $(window).on('load', function () {
             // 初期画面
@@ -68,9 +70,14 @@
                 $('txt_name').val(document.cookie.split('=')[1])
 
             } else {
-                const now = new Date();
                 let ID = '';
-                let name = decodeURI(window.location.search.slice(1))
+                let query = window.location.search.split('?');
+                let name;
+                query.forEach(item => {
+                    if (item.split('=')[0] == 'name') {
+                        name = decodeURI(item.split('=')[1]);
+                    }
+                });
 
 
 
@@ -79,16 +86,16 @@
                 for (let i = 0; i < name.length; i++) {
                     name_int += String(name.charCodeAt(i));
                 }
+                console.log(name_int);
 
                 //nameの数値からランダムに選びseedを生成
-                let seed_date = String(now.getFullYear()) + String(now.getMonth()) + String(now.getDate());
-                let pre_r = new Random(Number(seed_date));
+                let pre_r = new Random(Number(date));
                 let seed = ''
                 for (let i = 0; i < 24; i++) {
                     r = pre_r.nextInt(name_int.length - 1)
                     seed += name_int.slice(r, r + 1);
                 }
-
+                console.log(seed)
 
 
                 r = new Random(Number(seed));
@@ -158,13 +165,7 @@
         })
 
         generate_ID = function () {
-            if (window.location.href.slice(-1) == '?') {
-                window.location.href = window.location.href + $('#txt_name').val()
-
-            }
-            else {
-                window.location.href = window.location.href + '?' + $('#txt_name').val()
-            }
+            window.location.href = window.location.href + '?name=' + $('#txt_name').val() + '?date=' + date;
 
         }
 
