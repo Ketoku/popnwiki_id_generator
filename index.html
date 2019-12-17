@@ -14,6 +14,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="seedrandom-3.0.5/seedrandom.min.js"></script>
 
 
     <meta http-equiv="Pragma" content="no-cache" />
@@ -23,27 +24,29 @@
     <title>5の倍数入りのIDがポップンのお題に挑戦</title>
 
     <script type="text/javascript">
-        class Random {
-            constructor(seed = 88675123) {
-                this.x = 123456789;
-                this.y = 362436069;
-                this.z = 521288629;
-                this.w = seed;
+        /*
+            class Random {
+                constructor(seed = 88675123) {
+                    this.x = 123456789;
+                    this.y = 362436069;
+                    this.z = 521288629;
+                    this.w = seed;
+                }
+    
+                // XorShift
+                next() {
+                    let t;
+    
+                    t = this.x ^ (this.x << 11);
+                    this.x = this.y; this.y = this.z; this.z = this.w;
+                    return this.w = (this.w ^ (this.w >>> 19)) ^ (t ^ (t >>> 8));
+                }
+                nextInt(max) {
+                    const r = Math.abs(this.next());
+                    return r % (max + 1);
+                }
             }
-
-            // XorShift
-            next() {
-                let t;
-
-                t = this.x ^ (this.x << 11);
-                this.x = this.y; this.y = this.z; this.z = this.w;
-                return this.w = (this.w ^ (this.w >>> 19)) ^ (t ^ (t >>> 8));
-            }
-            nextInt(max) {
-                const r = Math.abs(this.next());
-                return r % (max + 1);
-            }
-        }
+            */
 
         const alp = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
             "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
@@ -77,30 +80,39 @@
 
 
                 // nameを数値に変換
+
+                /*
                 let name_int = '';
                 for (let i = 0; i < name.length; i++) {
                     name_int += String(name.charCodeAt(i));
                 }
-                if (name_int.length < 24) {
+                if (name_int.length < 14) {
                     name_int += '123456789012345678901234'.slice(0, -name_int.length);
                 }
                 console.log(name_int);
-
                 //nameの数値からランダムに選びseedを生成
-                console.log(date)
                 let pre_r = new Random(Number(date));
                 let seed = ''
-                for (let i = 0; i < 24; i++) {
+                for (let i = 0; i < 14; i++) {
                     r = pre_r.nextInt(name_int.length - 1)
+                    console.log(r)
                     seed += name_int.slice(r, r + 1);
                 }
-                console.log(seed)
+                console.log(Number(seed))
 
 
-                r = new Random(Number(seed));
-
+                let random = new Random(Number(seed));
                 for (let i = 0; i < 8; i++) {
-                    ID += alp[r.nextInt(alp.length - 1)];
+                    r = random.nextInt(alp.length - 1)
+                    console.log(r)
+                    ID += alp[r];
+                }
+                */
+
+                random = new Math.seedrandom(name + date)
+                for (let i = 0; i < 8; i++) {
+                    r = Math.floor(random() * alp.length)
+                    ID += alp[r];
                 }
 
                 let success = false;
