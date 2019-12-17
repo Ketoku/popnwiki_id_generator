@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja" manifest="popn.appcache">
+<html lang="ja" manifest="manifest.appcache">
 
 <head>
     <meta charset="UTF-8">
@@ -52,7 +52,7 @@
             "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
         let html = '';
-        const now = new Date();
+        let now = new Date();
         let date = String(now.getFullYear()) + String(now.getMonth()) + String(now.getDate());
 
         $(window).on('load', function () {
@@ -87,6 +87,8 @@
                 console.log(name_int);
 
                 //nameの数値からランダムに選びseedを生成
+                console.log(date)
+                date = '2019113'
                 let pre_r = new Random(Number(date));
                 let seed = ''
                 for (let i = 0; i < 24; i++) {
